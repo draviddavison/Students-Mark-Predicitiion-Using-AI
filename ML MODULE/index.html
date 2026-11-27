@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Student Academic Performance Prediction & Analysis | EduPredict</title>
+  <meta name="description" content="Comprehensive academic performance prediction and exam analysis across Model 1, Quarterly, Model 2, Half-Yearly, and Model 3 exams with eligibility categorization.">
+  <link rel="stylesheet" href="css/style.css">
+  <!-- Chart.js for interactive analytics -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header class="navbar">
+    <div class="nav-container">
+      <a href="#" class="brand" id="brand-logo" aria-label="EduPredict Home">
+        <div class="brand-icon-wrapper">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+            <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+          </svg>
+        </div>
+        <div>
+          <div class="brand-title">EduPredict AI</div>
+          <div class="brand-subtitle">Student Performance & Prediction Hub</div>
+        </div>
+      </a>
+
+      <div class="nav-actions">
+        <button type="button" class="btn btn-outline" id="btn-reset-data" title="Reset sample student data">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+            <path d="M3 3v5h5"></path>
+          </svg>
+          Reset Demo
+        </button>
+
+        <button type="button" class="btn btn-secondary" id="btn-export-csv" title="Export student marks to CSV">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          Export CSV
+        </button>
+
+        <button type="button" class="btn btn-primary" id="btn-open-add-student">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+          Add Student
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Application Container -->
+  <main class="app-container">
+
+    <!-- Hero / Project Context Banner -->
+    <section class="hero-banner" aria-labelledby="main-heading">
+      <div class="hero-header">
+        <div class="hero-title-group">
+          <h1 id="main-heading">Student Academic Performance Prediction & Analysis</h1>
+          <p class="hero-description">
+            Track, upload, and evaluate academic progression across <strong>Model 1, Quarterly, Model 2, Half-Yearly, and Model 3</strong> exams.
+            Predict upcoming final exam success probabilities and segment students into actionable performance categories.
+          </p>
+          <div class="hero-tags">
+            <span class="exam-pill">1. Model 1 Exam</span>
+            <span class="exam-pill">2. Quarterly Exam</span>
+            <span class="exam-pill">3. Model 2 Exam</span>
+            <span class="exam-pill">4. Half-Yearly Exam</span>
+            <span class="exam-pill">5. Model 3 Exam</span>
+            <span class="exam-pill" style="border-color: #6366f1; color: #a5b4fc;">★ Final Exam Prediction</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Key Performance Indicators / Categories Split -->
+    <section class="kpi-grid" aria-label="Academic Summary Metrics">
+      <!-- Total Cohort Card -->
+      <article class="kpi-card kpi-general">
+        <div class="kpi-card-header">
+          <span class="kpi-label">Class Cohort</span>
+          <div class="kpi-icon-circle">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+          </div>
+        </div>
+        <div class="kpi-value-row">
+          <div class="kpi-value" id="kpi-total-students">0</div>
+          <span class="kpi-badge" style="background: rgba(99,102,241,0.2); color: #c7d2fe;" id="kpi-class-avg">Avg: 0%</span>
+        </div>
+        <p class="kpi-subtitle">Active student records across all 5 evaluation cycles</p>
+      </article>
+
+      <!-- Category 1: Above 70% -->
+      <article class="kpi-card kpi-high">
+        <div class="kpi-card-header">
+          <span class="kpi-label">Above 70% Marks</span>
+          <div class="kpi-icon-circle">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+            </svg>
+          </div>
+        </div>
+        <div class="kpi-value-row">
+          <div class="kpi-value" id="kpi-high-count">0</div>
+          <span class="kpi-badge" id="kpi-high-pct">0%</span>
+        </div>
+        <p class="kpi-subtitle"><strong>Eligible to pass easily.</strong> Excellent mastery & distinction trajectory.</p>
+      </article>
+
+      <!-- Category 2: 40% to 70% -->
+      <article class="kpi-card kpi-moderate">
+        <div class="kpi-card-header">
+          <span class="kpi-label">40% to 70% Marks</span>
+          <div class="kpi-icon-circle">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+              <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+          </div>
+        </div>
+        <div class="kpi-value-row">
+          <div class="kpi-value" id="kpi-moderate-count">0</div>
+          <span class="kpi-badge" id="kpi-moderate-pct">0%</span>
+        </div>
+        <p class="kpi-subtitle"><strong>Eligible for upcoming final.</strong> Can pass comfortably with regular review.</p>
+      </article>
+
+      <!-- Category 3: Below 40% -->
+      <article class="kpi-card kpi-remedial">
+        <div class="kpi-card-header">
+          <span class="kpi-label">Below 40% Marks</span>
+          <div class="kpi-icon-circle">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+              <line x1="12" y1="9" x2="12" y2="13"></line>
+              <line x1="12" y1="17" x2="12.01" y2="17"></line>
+            </svg>
+          </div>
+        </div>
+        <div class="kpi-value-row">
+          <div class="kpi-value" id="kpi-remedial-count">0</div>
+          <span class="kpi-badge" id="kpi-remedial-pct">0%</span>
+        </div>
+        <p class="kpi-subtitle"><strong>Needs extra care.</strong> Urgent remedial tutoring & mentorship required.</p>
+      </article>
+    </section>
+
+    <!-- Analytics & Visual Trends Section -->
+    <section class="charts-grid" aria-label="Visual Analytics Charts">
+      <!-- Progression & Trend Analysis -->
+      <article class="chart-card">
+        <div class="chart-header">
+          <div class="chart-title-group">
+            <h3>Cohort Exam Progression Trend & Final Prediction</h3>
+            <p>Comparative average progression across Model 1, Quarterly, Model 2, Half-Yearly, and Model 3 with final trajectory</p>
+          </div>
+          <span class="exam-pill" style="background: rgba(99, 102, 241, 0.15); color: #818cf8;">5-Exam Series</span>
+        </div>
+        <div class="chart-container-trend">
+          <canvas id="trendChart"></canvas>
+        </div>
+      </article>
+
+      <!-- Categorization Donut Split -->
+      <article class="chart-card">
+        <div class="chart-header">
+          <div class="chart-title-group">
+            <h3>Performance Category Split</h3>
+            <p>Distribution of High (>70%), Moderate (40-70%), and Remedial (&lt;40%)</p>
+          </div>
+        </div>
+        <div class="chart-container-donut">
+          <canvas id="donutChart"></canvas>
+        </div>
+      </article>
+    </section>
+
+    <!-- Category Tabs & Filtering Section -->
+    <section class="filter-section" aria-label="Student Filters">
+      <div class="category-tabs" role="tablist">
+        <button type="button" class="category-tab-btn active" data-cat="all" role="tab" id="tab-all" aria-selected="true">
+          <span>All Students</span>
+          <span class="tab-badge" id="tab-badge-all">0</span>
+        </button>
+
+        <button type="button" class="category-tab-btn" data-cat="high" role="tab" id="tab-high" aria-selected="false">
+          <span>★ Above 70% (Pass Easily)</span>
+          <span class="tab-badge" id="tab-badge-high">0</span>
+        </button>
+
+        <button type="button" class="category-tab-btn" data-cat="moderate" role="tab" id="tab-moderate" aria-selected="false">
+          <span>✓ 40% to 70% (Final Pass Track)</span>
+          <span class="tab-badge" id="tab-badge-moderate">0</span>
+        </button>
+
+        <button type="button" class="category-tab-btn" data-cat="remedial" role="tab" id="tab-remedial" aria-selected="false">
+          <span>⚠ Below 40% (Needs Extra Care)</span>
+          <span class="tab-badge" id="tab-badge-remedial">0</span>
+        </button>
+      </div>
+
+      <!-- Search & Controls Toolbar -->
+      <div class="toolbar">
+        <div class="search-wrapper">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input type="text" id="search-input" class="search-input" placeholder="Search by student name, roll number, or class...">
+        </div>
+
+        <div class="toolbar-controls">
+          <label for="sort-select" style="font-size: 0.8rem; color: var(--text-muted);">Sort By:</label>
+          <select id="sort-select" class="select-custom">
+            <option value="pct-desc">Highest Percentage (High to Low)</option>
+            <option value="pct-asc">Lowest Percentage (Low to High)</option>
+            <option value="name-asc">Student Name (A-Z)</option>
+            <option value="roll-asc">Roll Number</option>
+          </select>
+        </div>
+      </div>
+    </section>
+
+    <!-- Student Cards Grid -->
+    <section id="students-grid" class="students-grid" aria-label="Student Performance Cards">
+      <!-- Dynamically filled by app.js -->
+    </section>
+
+  </main>
+
+  <!-- =======================================================================
+       Modal 1: Student Details & Marks Update Modal (When Clicking Student)
+       ======================================================================= -->
+  <div class="modal-overlay" id="modal-student-detail" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-student-profile">
+          <div class="avatar-editable-wrapper" title="Click to change student photo">
+            <img src="" alt="Student Profile Avatar" class="modal-avatar" id="modal-student-avatar">
+            <label for="detail-student-photo-input" class="avatar-edit-overlay">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                <circle cx="12" cy="13" r="4"></circle>
+              </svg>
+            </label>
+            <input type="file" id="detail-student-photo-input" accept="image/*" style="display: none;">
+          </div>
+          <div>
+            <h2 id="modal-student-name" style="font-size: 1.35rem; color: #fff;">Student Name</h2>
+            <div style="font-size: 0.8rem; color: var(--text-secondary); display: flex; gap: 0.5rem; align-items: center; margin-top: 0.2rem;">
+              <span class="roll-badge" id="modal-student-roll">24CS01</span>
+              <span id="modal-student-class">Class 12 - Sec A</span>
+              <span>•</span>
+              <span id="modal-student-id" style="color: var(--text-muted);">STU-1001</span>
+            </div>
+          </div>
+        </div>
+        <button type="button" class="modal-close-btn" id="modal-close-btn" aria-label="Close dialog">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <div class="modal-body">
+        <!-- Live Computed Stats Banner -->
+        <div class="modal-stats-banner">
+          <div class="modal-stat-box">
+            <span class="modal-stat-title">Overall Percentage</span>
+            <div class="modal-stat-number" id="modal-stat-percentage">0%</div>
+            <span class="modal-stat-tag" id="modal-stat-category-tag">Calculating...</span>
+          </div>
+
+          <div class="modal-stat-box">
+            <span class="modal-stat-title">Predicted Final Score</span>
+            <div class="modal-stat-number" style="color: #818cf8;" id="modal-stat-predicted">0/100</div>
+            <span class="modal-stat-tag" style="color: #a5b4fc;">Trend Extrapolation</span>
+          </div>
+
+          <div class="modal-stat-box">
+            <span class="modal-stat-title">Final Passing Odds</span>
+            <div class="modal-stat-number" id="modal-stat-probability" style="color: #34d399;">0%</div>
+            <span class="modal-stat-tag" id="modal-stat-risk">Low Risk</span>
+          </div>
+
+          <div class="modal-stat-box">
+            <span class="modal-stat-title">Growth Trajectory</span>
+            <div class="modal-stat-number" id="modal-stat-growth">+0%</div>
+            <span class="modal-stat-tag" id="modal-stat-trend">Model 1 → Model 3</span>
+          </div>
+        </div>
+
+        <!-- 5-Exam Marks Input Form (Live updates on typing!) -->
+        <div class="marks-input-section">
+          <h4>
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+              <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+            </svg>
+            Edit / Update Exam Marks (Out of 100)
+          </h4>
+          <p style="font-size: 0.8rem; color: var(--text-secondary); margin-bottom: 0.75rem;">
+            Update any exam score below. The percentage, pass eligibility, category, and final exam prediction will recalculate instantly.
+          </p>
+
+          <form id="marks-update-form" class="marks-form-grid">
+            <div class="mark-field-group">
+              <label for="input-mark-model1" class="mark-field-label">1. Model 1</label>
+              <div class="mark-input-wrap">
+                <input type="number" id="input-mark-model1" class="mark-number-input" min="0" max="100" required>
+                <span class="mark-suffix">/100</span>
+              </div>
+            </div>
+
+            <div class="mark-field-group">
+              <label for="input-mark-quarterly" class="mark-field-label">2. Quarterly</label>
+              <div class="mark-input-wrap">
+                <input type="number" id="input-mark-quarterly" class="mark-number-input" min="0" max="100" required>
+                <span class="mark-suffix">/100</span>
+              </div>
+            </div>
+
+            <div class="mark-field-group">
+              <label for="input-mark-model2" class="mark-field-label">3. Model 2</label>
+              <div class="mark-input-wrap">
+                <input type="number" id="input-mark-model2" class="mark-number-input" min="0" max="100" required>
+                <span class="mark-suffix">/100</span>
+              </div>
+            </div>
+
+            <div class="mark-field-group">
+              <label for="input-mark-halfYearly" class="mark-field-label">4. Half-Yearly</label>
+              <div class="mark-input-wrap">
+                <input type="number" id="input-mark-halfYearly" class="mark-number-input" min="0" max="100" required>
+                <span class="mark-suffix">/100</span>
+              </div>
+            </div>
+
+            <div class="mark-field-group">
+              <label for="input-mark-model3" class="mark-field-label">5. Model 3</label>
+              <div class="mark-input-wrap">
+                <input type="number" id="input-mark-model3" class="mark-number-input" min="0" max="100" required>
+                <span class="mark-suffix">/100</span>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <!-- Student Progress Line Chart -->
+        <div class="modal-chart-section">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+            <h5 style="font-size: 0.85rem; color: var(--text-primary); text-transform: uppercase; letter-spacing: 0.04em;">
+              Student Performance Curve vs Cohort Benchmark
+            </h5>
+            <span style="font-size: 0.75rem; color: var(--text-muted);">Blue: Student | Gray: Class Avg</span>
+          </div>
+          <div class="modal-chart-container">
+            <canvas id="studentSparklineChart"></canvas>
+          </div>
+        </div>
+
+        <!-- Dynamic Category Advisory & Action Plan -->
+        <div class="advisory-box" id="modal-advisory-box">
+          <div class="advisory-title" id="modal-advisory-title">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="8" x2="12" y2="12"></line>
+              <line x1="12" y1="16" x2="12.01" y2="16"></line>
+            </svg>
+            <span id="modal-advisory-heading">Performance Assessment</span>
+          </div>
+          <p class="advisory-desc" id="modal-advisory-text">Loading personalized recommendation...</p>
+          <ul class="action-checklist" id="modal-action-checklist">
+            <!-- Dynamic checklist -->
+          </ul>
+        </div>
+
+        <!-- Teacher Notes Field -->
+        <div class="form-group">
+          <label for="modal-input-notes">Teacher Academic Notes & Recommendations</label>
+          <textarea id="modal-input-notes" class="text-input" rows="2" placeholder="Add specific observation or remedial assignment notes for this student..."></textarea>
+        </div>
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline" id="modal-btn-delete" style="color: #fb7185; border-color: rgba(244,63,94,0.3);">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <polyline points="3 6 5 6 21 6"></polyline>
+            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+          </svg>
+          Delete Student
+        </button>
+
+        <div style="display: flex; gap: 0.75rem;">
+          <button type="button" class="btn btn-secondary" id="modal-btn-cancel">Close</button>
+          <button type="button" class="btn btn-primary" id="modal-btn-save">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+              <polyline points="17 21 17 13 7 13 7 21"></polyline>
+              <polyline points="7 3 7 8 15 8"></polyline>
+            </svg>
+            Save Marks & Update Analysis
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =======================================================================
+       Modal 2: Add New Student
+       ======================================================================= -->
+  <div class="modal-overlay" id="modal-add-student" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-card" style="max-width: 650px;">
+      <div class="modal-header">
+        <div>
+          <h2 style="font-size: 1.25rem; color: #fff;">Register New Student</h2>
+          <p style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.2rem;">
+            Enter student details and initial marks for Model 1, Quarterly, Model 2, Half-Yearly, and Model 3.
+          </p>
+        </div>
+        <button type="button" class="modal-close-btn" id="modal-add-close-btn" aria-label="Close dialog">
+          <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <form id="form-add-student">
+        <div class="modal-body">
+          <!-- Student Photo Upload Section -->
+          <div class="photo-upload-card">
+            <div class="photo-preview-wrap">
+              <img id="add-student-photo-preview" src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=150&auto=format&fit=crop&q=80" alt="Preview Photo" class="photo-preview-img">
+            </div>
+            <div class="photo-upload-details">
+              <label class="photo-upload-title">Student Profile Photo</label>
+              <p class="photo-upload-subtitle">Upload a formal photo for student records (JPG, PNG, WEBP).</p>
+              <div class="photo-upload-actions">
+                <label for="add-student-photo-file" class="btn btn-secondary btn-sm" style="cursor: pointer;">
+                  <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="17 8 12 3 7 8"></polyline>
+                    <line x1="12" y1="3" x2="12" y2="15"></line>
+                  </svg>
+                  Choose Photo
+                </label>
+                <input type="file" id="add-student-photo-file" accept="image/*" style="display: none;">
+                <button type="button" id="btn-remove-photo" class="btn btn-outline btn-sm" style="display: none;">
+                  Remove
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="add-student-name">Full Name *</label>
+              <input type="text" id="add-student-name" class="text-input" placeholder="e.g. Ramesh Kumar" required>
+            </div>
+            <div class="form-group">
+              <label for="add-student-roll">Roll Number *</label>
+              <input type="text" id="add-student-roll" class="text-input" placeholder="e.g. 24CS15" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="add-student-class">Class / Section</label>
+              <input type="text" id="add-student-class" class="text-input" placeholder="e.g. Class 12 - Sec A" value="Class 12 - Sec A">
+            </div>
+            <div class="form-group">
+              <label for="add-student-gender">Gender (for avatar)</label>
+              <select id="add-student-gender" class="select-custom" style="width: 100%;">
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Initial 5 Exam Marks -->
+          <div style="margin-top: 0.5rem;">
+            <label style="font-size: 0.85rem; font-weight: 700; color: #fff; margin-bottom: 0.5rem; display: block;">
+              Exam Marks (0 - 100)
+            </label>
+            <div class="marks-form-grid">
+              <div class="mark-field-group">
+                <label class="mark-field-label" for="add-mark-m1">Model 1</label>
+                <input type="number" id="add-mark-m1" class="mark-number-input" min="0" max="100" value="70">
+              </div>
+              <div class="mark-field-group">
+                <label class="mark-field-label" for="add-mark-q">Quarterly</label>
+                <input type="number" id="add-mark-q" class="mark-number-input" min="0" max="100" value="72">
+              </div>
+              <div class="mark-field-group">
+                <label class="mark-field-label" for="add-mark-m2">Model 2</label>
+                <input type="number" id="add-mark-m2" class="mark-number-input" min="0" max="100" value="75">
+              </div>
+              <div class="mark-field-group">
+                <label class="mark-field-label" for="add-mark-hy">Half-Yearly</label>
+                <input type="number" id="add-mark-hy" class="mark-number-input" min="0" max="100" value="78">
+              </div>
+              <div class="mark-field-group">
+                <label class="mark-field-label" for="add-mark-m3">Model 3</label>
+                <input type="number" id="add-mark-m3" class="mark-number-input" min="0" max="100" value="80">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" id="modal-add-btn-cancel">Cancel</button>
+          <button type="submit" class="btn btn-primary">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg>
+            Add Student & Analyze
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div class="toast-container" id="toast-container" aria-live="polite"></div>
+
+  <!-- Application Logic Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/analytics.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
